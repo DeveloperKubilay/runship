@@ -2,7 +2,7 @@
 
 ## Demo 🎥
 Örnek videoyu izleyin:
-[![Örnek Video](https://img.youtube.com/vi/placeholder/0.jpg)](https://github.com/DeveloperKubilay/runship/raw/refs/heads/main/.github/examplevideo.mp4)
+https://youtu.be/Y0v-qoW07jI
 
 Auto-Deploy, uygulamaları birden fazla sanal makineye (VM) dağıtma sürecini kolaylaştırmak için tasarlanmış Node.js tabanlı bir dağıtım otomasyon aracıdır. Firebase'i VM yönetimi ve SSH'yi güvenli iletişim için kullanır.
 
@@ -45,6 +45,7 @@ Auto-Deploy, uygulamaları birden fazla sanal makineye (VM) dağıtma sürecini 
        uploadFolder: "example-folder",
        serviceName: "example.service",
        multiply: 5,
+       verbose: true,
        beforeUpload: "mv data.json ../data.json",
        beforeRun: "echo hi > test.txt && mv ../data.json data.json && /usr/bin/npm i",
    });

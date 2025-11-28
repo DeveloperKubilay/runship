@@ -2,7 +2,7 @@
 
 ## Demo 🎥
 Check out the example video:
-[![Example Video](https://img.youtube.com/vi/placeholder/0.jpg)](https://github.com/DeveloperKubilay/runship/raw/refs/heads/main/.github/examplevideo.mp4)
+https://youtu.be/Y0v-qoW07jI
 
 Auto-Deploy is a Node.js-based deployment automation tool designed to simplify the process of deploying applications to multiple virtual machines (VMs). It leverages Firebase for VM management and SSH for secure communication.
 
@@ -45,6 +45,7 @@ Update the `config.json` file with your Firebase configuration and encryption pa
        uploadFolder: "example-folder",
        serviceName: "example.service",
        multiply: 5,
+       verbose: true,
        beforeUpload: "mv data.json ../data.json",
        beforeRun: "echo hi > test.txt && mv ../data.json data.json && /usr/bin/npm i",
    });

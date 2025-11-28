@@ -37,8 +37,7 @@ module.exports = {
             };
 
         } catch (err) {
-            console.error('SSH Connection Error:', err);
-            return null; // Return null if connection fails
+            return null; 
         }
     },
     generateCode: function (newpath, serviceName) {
