@@ -8,7 +8,7 @@ async function main() {
         serviceName: "example.service",
         multiply: 5,
         beforeUpload: "mv data.json ../data.json",
-        beforeRun: "rm -rf data.json && mv ../data.json data.json && npm i",
+        beforeRun: "echo hi > test.txt && mv ../data.json data.json && /usr/bin/npm i",
     });
 
     process.exit(0);

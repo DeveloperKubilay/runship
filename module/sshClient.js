@@ -44,8 +44,9 @@ module.exports = {
     generateCode: function (newpath, serviceName) {
         return {
             "start": `${serviceName ? `sudo systemctl stop ${serviceName} &&` : ''} export AUTOSHIP="${newpath}" && rm -rf $AUTOSHIP && mkdir -p $AUTOSHIP`,
-            "end": `${serviceName ? `sudo systemctl start ${serviceName} &&` : ''} export AUTOSHIP="${newpath}" && cd $AUTOSHIP && unzip -o deploy.zip && rm -rf deploy.zip`,
-            "normal": `export AUTOSHIP="${newpath}" && cd $AUTOSHIP\n`
+            "end": `export AUTOSHIP="${newpath}" && cd $AUTOSHIP && unzip -o deploy.zip && rm -rf deploy.zip`,
+            "normal": `export AUTOSHIP="${newpath}" && cd $AUTOSHIP &&`,
+            "service": `${serviceName ? `sudo systemctl start ${serviceName}` : ''}`
         }
     }
 }

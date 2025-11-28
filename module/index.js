@@ -28,12 +28,14 @@ module.exports = {
 
                 try {
                     if (config.beforeUpload) await server.exec(commands.normal + config.beforeUpload);
+
                     await server.exec(commands.start);
-
                     await server.upload("./deploy.zip", vm.path + 'deploy.zip');
-                    if (config.beforeRun) await server.exec(commands.normal + config.beforeRun);
-
                     await server.exec(commands.end);
+
+                    if (config.beforeRun) await server.exec(commands.normal + config.beforeRun);
+                    console.log(commands.service)
+                    await server.exec(commands.service)
                 } catch (err) {
                     console.error(`Error during deployment to VM: ${vm.host}`, err);
                 } finally {
