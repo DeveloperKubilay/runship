@@ -1,7 +1,8 @@
 const autoship = require("./module");
+const config = require("./config.json");
 
 async function main() {
-    autoship.connect(require("./config.json").firebaseConfig);
+    autoship.connect(config);
 
     await autoship.deploy({
         uploadFolder: "example-folder",
