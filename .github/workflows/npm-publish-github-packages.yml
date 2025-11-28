@@ -1,0 +1,30 @@
+name: "🚀 release"
+
+on:
+  workflow_dispatch:
+
+jobs:
+    release:
+        name: 🚀 release
+        runs-on: ubuntu-latest
+        steps:
+            - name: 📚 checkout
+              uses: actions/checkout@v4.2.2
+            - name: 🟢 node
+              uses: actions/setup-node@v3.9.1
+              with:
+                  node-version: 24
+                  registry-url: https://registry.npmjs.org
+
+                                    
+            - name: 📦 Package setup
+              run: cp package.json module/package.json && cp README.md module/README.md && cp LICENSE module/LICENSE
+              working-directory: .
+
+            - name: 🚀 publish
+              run: npm publish --access public
+              working-directory: module
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
+
+                  

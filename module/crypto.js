@@ -1,8 +1,12 @@
 const crypto = require('crypto');
-const config = require('../config.json');
 
-const key = config.Password.slice(0, 32).padEnd(32, '0'); 
-const iv = Buffer.alloc(16, 0);
+let key = null;
+let iv = null;
+
+function updateKey(newKey) {
+	key = newKey.slice(0, 32).padEnd(32, '0');
+	iv = Buffer.alloc(16, 0);
+}
 
 function encryptObject(obj) {
 	const encrypted = {};
@@ -28,4 +32,4 @@ function decrypt(encrypted) {
 	return decrypted;
 }
 
-module.exports = { encrypt, decrypt, encryptObject };
+module.exports = { updateKey, encrypt, decrypt, encryptObject };

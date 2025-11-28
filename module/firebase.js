@@ -4,9 +4,10 @@ const cryptoUtil = require("./crypto");
 
 let db = null;
 
-
 module.exports = {
-    connect: async function (settings) {
+    connect: async function (settings,Password) {
+        if(settings.Password) Password = settings.Password;
+        cryptoUtil.updateKey(Password);
         const app = initializeApp(settings);
         db = getFirestore(app);
     },
