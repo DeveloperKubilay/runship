@@ -2,7 +2,7 @@ const runship = require("./module");
 const config = require("./config.json");
 
 async function main() {
-    runship.connect(config);
+    runship.connect(config.firebaseConfig, config.password);
 
     await runship.deploy({
         uploadFolder: "example-folder",

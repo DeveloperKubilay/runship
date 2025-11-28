@@ -34,7 +34,6 @@ module.exports = {
                     await server.exec(commands.end);
 
                     if (config.beforeRun) await server.exec(commands.normal + config.beforeRun);
-                    console.log(commands.service)
                     await server.exec(commands.service)
                 } catch (err) {
                     console.error(`Error during deployment to VM: ${vm.host}`, err);

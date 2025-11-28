@@ -3,7 +3,7 @@ const fs = require("fs");
 const config = require("./config.json");
 
 async function main() {
-    runship.connect(config.firebaseConfig, config.Password);
+    runship.connect(config.firebaseConfig, config.password);
 
     await runship.addTestVM({
         host: "18.194.153.171",
