@@ -1,5 +1,9 @@
 # Auto-Deploy 🚀
 
+## Demo 🎥
+Check out the example video:
+[![Example Video](https://img.youtube.com/vi/placeholder/0.jpg)](https://github.com/DeveloperKubilay/runship/raw/refs/heads/main/.github/examplevideo.mp4)
+
 Auto-Deploy is a Node.js-based deployment automation tool designed to simplify the process of deploying applications to multiple virtual machines (VMs). It leverages Firebase for VM management and SSH for secure communication.
 
 ## Features 🌟
