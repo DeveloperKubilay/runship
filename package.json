@@ -1,17 +1,32 @@
 {
-  "name": "autoship",
+  "name": "runship",
   "version": "1.0.0",
+  "description": "Mirror your code across all servers — RunShip ⭐",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "add-vm": "node addVM.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": [
+    "deployment",
+    "automation",
+    "firebase",
+    "ssh",
+    "virtual-machines"
+  ],
+  "author": "DeveloperKubilay",
+  "license": "MIT",
   "dependencies": {
     "archiver": "^7.0.1",
     "firebase": "^12.6.0",
     "ssh2": "^1.17.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DeveloperKubilay/runship.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DeveloperKubilay/runship/issues"
+  },
+  "homepage": "https://github.com/DeveloperKubilay/runship#readme"
 }

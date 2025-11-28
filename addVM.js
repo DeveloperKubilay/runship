@@ -1,11 +1,11 @@
-const autoship = require("./module");
+const runship = require("./module");
 const fs = require("fs");
 const config = require("./config.json");
 
 async function main() {
-    autoship.connect(config.firebaseConfig, config.Password);
+    runship.connect(config.firebaseConfig, config.Password);
 
-    await autoship.addTestVM({
+    await runship.addTestVM({
         host: "18.194.153.171",
         username: "ec2-user",
         password: null,

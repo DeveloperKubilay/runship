@@ -11,7 +11,7 @@ Auto-Deploy, uygulamaları birden fazla sanal makineye (VM) dağıtma sürecini 
 ## Kurulum 🛠️
 1. Paketi yükleyin:
    ```bash
-   npm install autoship
+   npm install runship
    ```
 
 ## Yapılandırma ⚙️
@@ -34,10 +34,10 @@ Auto-Deploy, uygulamaları birden fazla sanal makineye (VM) dağıtma sürecini 
 ### Uygulama Dağıtımı
 1. `index.js` dosyasını dağıtım yapılandırmanızla güncelleyin:
    ```javascript
-   const autoship = require("autoship");
-   autoship.connect(require("./config.json").firebaseConfig);
+   const runship = require("runship");
+   runship.connect(require("./config.json").firebaseConfig);
 
-   autoship.deploy({
+   runship.deploy({
        uploadFolder: "example-folder",
        serviceName: "example.service",
        multiply: 5,
@@ -49,10 +49,10 @@ Auto-Deploy, uygulamaları birden fazla sanal makineye (VM) dağıtma sürecini 
 ### VM Ekleme
 1. `addVM.js` dosyasını VM detaylarınızla güncelleyin:
    ```javascript
-   const autoship = require("autoship");
-   autoship.connect(require("./config.json").firebaseConfig);
+   const runship = require("runship");
+   runship.connect(require("./config.json").firebaseConfig);
 
-   autoship.addTestVM({
+   runship.addTestVM({
        host: "<VM_HOST>",
        username: "<KULLANICI_ADI>",
        password: null,

@@ -11,7 +11,7 @@ Auto-Deploy is a Node.js-based deployment automation tool designed to simplify t
 ## Installation 🛠️
 1. Install the package:
    ```bash
-   npm install autoship
+   npm install runship
    ```
 
 ## Configuration ⚙️
@@ -34,10 +34,10 @@ Update the `config.json` file with your Firebase configuration and encryption pa
 ### Deploying Applications
 1. Update the `index.js` file with your deployment configuration:
    ```javascript
-   const autoship = require("autoship");
-   autoship.connect(require("./config.json").firebaseConfig);
+   const runship = require("runship");
+   runship.connect(require("./config.json").firebaseConfig);
 
-   autoship.deploy({
+   runship.deploy({
        uploadFolder: "example-folder",
        serviceName: "example.service",
        multiply: 5,
@@ -49,10 +49,10 @@ Update the `config.json` file with your Firebase configuration and encryption pa
 ### Adding a VM
 1. Update the `addVM.js` file with your VM details:
    ```javascript
-   const autoship = require("autoship");
-   autoship.connect(require("./config.json").firebaseConfig);
+   const runship = require("runship");
+   runship.connect(require("./config.json").firebaseConfig);
 
-   autoship.addTestVM({
+   runship.addTestVM({
        host: "<VM_HOST>",
        username: "<USERNAME>",
        password: null,

@@ -1,10 +1,10 @@
-const autoship = require("./module");
+const runship = require("./module");
 const config = require("./config.json");
 
 async function main() {
-    autoship.connect(config);
+    runship.connect(config);
 
-    await autoship.deploy({
+    await runship.deploy({
         uploadFolder: "example-folder",
         serviceName: "example.service",
         multiply: 5,
