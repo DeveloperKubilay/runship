@@ -20,7 +20,7 @@ module.exports = {
             const batch = vms.slice(i, i + batchSize);
             await Promise.all(batch.map(async (vm) => {
                 console.log("Deploying to VM:", vm.host);
-                if(vm.path.slice(-1) !== '/') vm.path += '/';
+                if (vm.path.slice(-1) !== '/') vm.path += '/';
                 const commands = ssh.generateCode(vm.path, config.serviceName);
                 const server = await ssh.newSSHClient(vm);
 
@@ -30,17 +30,21 @@ module.exports = {
                     if (config.beforeUpload) await server.exec(commands.normal + config.beforeUpload);
                     await server.exec(commands.start);
 
-                    await server.upload(require("path").join(__dirname, '../deploy.zip'), vm.path + 'deploy.zip');
-                    await server.exec(commands.end);
+                    await server.upload("./deploy.zip", vm.path + 'deploy.zip');
+                    if (config.beforeRun) await server.exec(commands.normal + config.beforeRun);
 
-                    if (config.afterRun) await server.exec(commands.normal + config.afterRun);
+                    await server.exec(commands.end);
                 } catch (err) {
                     console.error(`Error during deployment to VM: ${vm.host}`, err);
                 } finally {
                     server.close();
+                    console.log("Deployment to VM completed:", vm.host);
                 }
             }));
         }
+
+        try { fs.unlinkSync('deploy.zip') } catch (e) { }
+        console.log("Deployment to all VMs completed.");
 
     }
 };

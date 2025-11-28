@@ -4,13 +4,14 @@ async function main() {
     autoship.connect(require("./config.json").firebaseConfig);
 
     await autoship.deploy({
-        uploadFolder: "module",
-       // serviceName: "test-service",
-
+        uploadFolder: "example-folder",
+        serviceName: "example.service",
         multiply: 5,
-        beforeUpload: "echo hi > test.txt",
-        afterRun: "echo hi > test2.txt",
+        beforeUpload: "mv data.json ../data.json",
+        beforeRun: "rm -rf data.json && mv ../data.json data.json && npm i",
     });
+
+    process.exit(0);
 }
 
 main();

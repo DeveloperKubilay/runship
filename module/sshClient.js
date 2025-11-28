@@ -14,7 +14,6 @@ module.exports = {
 
             async function upload(file, path) {
                 await new Promise((resolve, reject) => {
-                    console.log(`Uploading ${file} to ${path}`);
                     sftp.fastPut(file, path, (err) => {
                         if (err) reject(err);
                         else resolve();
@@ -26,7 +25,7 @@ module.exports = {
                 return await new Promise((resolve, reject) => {
                     conn.exec(command, (err, stream) => {
                         if (err) return reject(err);
-                        stream.on('close', resolve).on('data', (data) => console.log('OUTPUT:', data.toString()));
+                        stream.on('close', resolve).on('data', (data) => {});
                     });
                 });
             }
