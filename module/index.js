@@ -2,9 +2,33 @@ const firebase = require("./firebase");
 const archiver = require('archiver');
 const ssh = require('./sshClient');
 const fs = require('fs');
+const jsonStorage = require("./jsonStorage");
 
 module.exports = {
     ...firebase,
+    json: function (settings) {
+        if (typeof settings === "string") {
+            jsonStorage.setPath(settings);
+            return {
+                addTestVM: async function (vm) {
+                    const vms = jsonStorage.readVMs().Vms;
+                    vms.push(vm);
+                    jsonStorage.writeVMs(vms);
+                },
+                getAllVMs: async function () {
+                    return jsonStorage.readVMs().Vms;
+                }
+            };
+        } else if (typeof settings === "object") {
+            jsonStorage.setData(settings);
+            return {
+                getAllVMs: async function () {
+                    return jsonStorage.readVMs().Vms;
+                }
+            };
+        }
+        throw new Error("Invalid settings type. Must be a string (path) or object.");
+    },
     deploy: async function (config) {
         const vms = await firebase.getAllVMs();
 

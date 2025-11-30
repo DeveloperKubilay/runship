@@ -1,6 +1,6 @@
 {
   "name": "runship",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Mirror your code across all servers — RunShip ⭐",
   "main": "index.js",
   "scripts": {

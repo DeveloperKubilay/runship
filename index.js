@@ -2,7 +2,16 @@ const runship = require("./module");
 const config = require("./config.json");
 
 async function main() {
-    runship.connect(config.firebaseConfig, config.password);
+    const storage = runship.json("./settings.json");
+
+    await storage.addTestVM({
+        host: "18.194.153.171",
+        username: "ec2-user",
+        password: null,
+        port: 22,
+        path: "/home/ec2-user/module",
+        privateKey: "PRIVATE_KEY_CONTENT",
+    });
 
     await runship.deploy({
         uploadFolder: "example-folder",
