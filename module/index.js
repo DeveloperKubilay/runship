@@ -51,7 +51,8 @@ module.exports = {
         const archive = archiver('zip');
         archive.pipe(output);
         archive.directory(config.uploadFolder + '/', false, (entry) => {
-            return entry.name !== 'TempDeploy.zip'; 
+            if (entry.name === 'TempDeploy.zip') return false;
+            return entry; 
         });
         await archive.finalize();
 
