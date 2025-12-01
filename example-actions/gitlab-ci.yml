@@ -1,0 +1,14 @@
+stages:
+  - release
+
+release:
+  stage: release
+  image: node:24
+  script:
+    - echo "$config" > ./config.json
+    - npm install runship
+    - node index.js
+  variables:
+    config: "$CONFIG_SECRET"
+  only:
+    - main

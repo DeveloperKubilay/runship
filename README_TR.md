@@ -66,3 +66,27 @@ Auto-Deploy, uygulamaları birden fazla sanal makineye (VM) dağıtma sürecini 
        privateKey: fs.readFileSync("path/to/private/key", 'utf8'),
    });
    ```
+
+### Servis Oluşturma ve Başlatma
+1. `services.js` dosyasını servis yapılandırmanızla güncelleyin:
+   ```javascript
+   const runship = require("runship");
+   const config = require("./config.json");
+
+   async function main() {
+       runship.json("./settings.json");
+
+       await runship.createService({
+           name: "alsatbotu",
+           execStart: "/usr/bin/node index.js",
+       });
+
+       await runship.startService({
+           name: "alsatbotu",
+       });
+
+       process.exit(0);
+   }
+
+   main();
+   ```

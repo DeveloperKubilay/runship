@@ -1,0 +1,26 @@
+name: "🚀 release"
+
+on:
+  workflow_dispatch:
+
+jobs:
+    release:
+        name: 🚀 release
+        runs-on: ubuntu-latest
+        steps:
+            - name: 📚 checkout
+              uses: actions/checkout@v4.2.2
+            - name: 🟢 node
+              uses: actions/setup-node@v3.9.1
+              with:
+                  node-version: 24
+                  registry-url: https://registry.npmjs.org
+            
+            - name: 📝 create config.json
+              run: |
+                echo "${{secrets.config}}" > ./config.json
+              working-directory: example-actions/PUBLISH
+
+            - name: 📦 publish servers
+              run: npm i runship && node index.js
+              working-directory: example-actions/PUBLISH

@@ -2,3 +2,4 @@ config.json
 test.txt
 node_modules/
 deploy.zip
+settings.json

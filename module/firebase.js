@@ -10,6 +10,9 @@ module.exports = {
         const app = initializeApp(settings);
         db = getFirestore(app);
     },
+    isconnected : function () {
+        return db != null;
+    },
     addTestVM: async function (object) {
         try {
             const encryptedObject = cryptoUtil.encryptObject(object);

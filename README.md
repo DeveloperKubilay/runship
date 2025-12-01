@@ -66,3 +66,27 @@ Update the `config.json` file with your Firebase configuration and encryption pa
        privateKey: fs.readFileSync("path/to/private/key", 'utf8'),
    });
    ```
+
+### Creating and Starting Services
+1. Update the `services.js` file with your service configuration:
+   ```javascript
+   const runship = require("runship");
+   const config = require("./config.json");
+
+   async function main() {
+       runship.json("./settings.json");
+
+       await runship.createService({
+           name: "alsatbotu",
+           execStart: "/usr/bin/node index.js",
+       });
+
+       await runship.startService({
+           name: "alsatbotu",
+       });
+
+       process.exit(0);
+   }
+
+   main();
+   ```

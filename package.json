@@ -1,6 +1,6 @@
 {
   "name": "runship",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Mirror your code across all servers — RunShip ⭐",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,7 @@
   "dependencies": {
     "archiver": "^7.0.1",
     "firebase": "^12.6.0",
+    "kubitdb": "^1.5.5",
     "ssh2": "^1.17.0"
   },
   "repository": {
