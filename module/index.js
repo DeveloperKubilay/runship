@@ -46,11 +46,13 @@ module.exports = {
         const dataSource = firebase.isconnected() ? firebase : jsonDatabase;
         const vms = await dataSource.getAllVMs();
 
-        try { fs.unlinkSync('deploy.zip'); } catch (e) { }
-        const output = fs.createWriteStream('deploy.zip');
+        try { fs.unlinkSync('TempDeploy.zip'); } catch (e) { }
+        const output = fs.createWriteStream('TempDeploy.zip');
         const archive = archiver('zip');
         archive.pipe(output);
-        archive.directory(config.uploadFolder + '/', false);
+        archive.directory(config.uploadFolder + '/', false, (entry) => {
+            return entry.name !== 'TempDeploy.zip'; 
+        });
         await archive.finalize();
 
         await processVMs(config, 5, async (vm, server) => {
@@ -62,7 +64,7 @@ module.exports = {
                 if (config.beforeUpload) await server.exec(commands.normal + config.beforeUpload);
 
                 await server.exec(commands.start);
-                await server.upload("./deploy.zip", vm.path + 'deploy.zip');
+                await server.upload("./TempDeploy.zip", vm.path + 'TempDeploy.zip');
                 await server.exec(commands.end);
 
                 if (config.beforeRun) await server.exec(commands.normal + config.beforeRun);
@@ -74,7 +76,7 @@ module.exports = {
             }
         });
 
-        try { fs.unlinkSync('deploy.zip'); } catch (e) { }
+        try { fs.unlinkSync('TempDeploy.zip'); } catch (e) { }
         if (config.verbose) console.log("Deployment to all VMs completed.");
     }
 };

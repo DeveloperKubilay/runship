@@ -2,7 +2,7 @@ const runship = require("./module");
 const config = require("./config.json");
 
 async function main() {
-    const storage = runship.json("./settings.json");
+    runship.json("./settings.json");
 
     await runship.deploy({
         uploadFolder: "example-folder",
