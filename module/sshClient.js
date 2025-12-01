@@ -67,7 +67,7 @@ Description=${config.description || "Runship Service"}
 ExecStart=${config.execStart}
 ${config.autostart != false ? 'Restart=always' : ''}
 User=${vmsettings.username}
-WorkingDirectory="${vmsettings.path}"
+WorkingDirectory=${vmsettings.path}
 
 [Install]
 WantedBy=multi-user.target
