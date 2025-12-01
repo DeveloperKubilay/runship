@@ -4,7 +4,8 @@ const ssh = require('./sshClient');
 const fs = require('fs');
 const jsonDatabase = require("./jsonDatabase");
 
-async function processVMs(config, batchSize, action) {
+async function processVMs(config, action) {
+    const batchSize = config.multiply || 1;
     const dataSource = firebase.isconnected() ? firebase : jsonDatabase;
     const vms = await dataSource.getAllVMs();
 
@@ -31,21 +32,18 @@ module.exports = {
     ...firebase,
     ...jsonDatabase,
     createService: async function (config) {
-        await processVMs(config, 5, async (vm, server) => {
+        await processVMs(config, async (vm, server) => {
             const command = ssh.createService(config, vm);
             await server.exec(command);
         });
     },
     startService: async function (config) {
-        await processVMs(config, 5, async (vm, server) => {
+        await processVMs(config, async (vm, server) => {
             const command = ssh.startService(config);
             await server.exec(command);
         });
     },
     deploy: async function (config) {
-        const dataSource = firebase.isconnected() ? firebase : jsonDatabase;
-        const vms = await dataSource.getAllVMs();
-
         try { fs.unlinkSync('TempDeploy.zip'); } catch (e) { }
         const output = fs.createWriteStream('TempDeploy.zip');
         const archive = archiver('zip');
@@ -55,7 +53,7 @@ module.exports = {
         );
         await archive.finalize();
 
-        await processVMs(config, 5, async (vm, server) => {
+        await processVMs(config, async (vm, server) => {
             if (config.verbose) console.log("Deploying to VM:", vm.host);
             if (vm.path.slice(-1) !== '/') vm.path += '/';
             const commands = ssh.generateCode(vm.path, config.serviceName);
