@@ -1,0 +1,32 @@
+name: "🚀 release"
+
+on:
+  workflow_dispatch:
+
+jobs:
+    release:
+        name: 🚀 release
+        runs-on: ubuntu-latest
+        steps:
+            - name: 📚 checkout
+              uses: actions/checkout@v4.2.2
+            - name: 🟢 node
+              uses: actions/setup-node@v3.9.1
+              with:
+                  node-version: 20 
+                  registry-url: https://registry.npmjs.org
+            
+            - name: 📝 create config.json
+              run: |
+                printf "%s" "${{secrets.config}}" > ./SSH_PRIVATE_KEY.txt
+              working-directory: ydk/PUBLISH
+
+            - name : 🔐 install dependencies
+              run: rm -rf .git .github .gitignore && cd .. && npm config delete always-auth && npm i kubitdb runship@latest 
+              working-directory: .
+
+            - name: 📦 publish servers
+              run: |
+               node index.js
+              working-directory: ydk/PUBLISH
+              timeout-minutes: 10
