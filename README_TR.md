@@ -77,12 +77,12 @@ Auto-Deploy, uygulamaları birden fazla sanal makineye (VM) dağıtma sürecini 
        runship.json("./settings.json");
 
        await runship.createService({
-           name: "alsatbotu",
+           name: "example-service",
            execStart: "/usr/bin/node index.js",
        });
 
        await runship.startService({
-           name: "alsatbotu",
+           name: "example-service",
        });
 
        process.exit(0);

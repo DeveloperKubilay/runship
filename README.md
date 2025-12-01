@@ -77,12 +77,12 @@ Update the `config.json` file with your Firebase configuration and encryption pa
        runship.json("./settings.json");
 
        await runship.createService({
-           name: "alsatbotu",
+           name: "example-service",
            execStart: "/usr/bin/node index.js",
        });
 
        await runship.startService({
-           name: "alsatbotu",
+           name: "example-service",
        });
 
        process.exit(0);
