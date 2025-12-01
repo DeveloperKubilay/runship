@@ -50,10 +50,9 @@ module.exports = {
         const output = fs.createWriteStream('TempDeploy.zip');
         const archive = archiver('zip');
         archive.pipe(output);
-        archive.directory(config.uploadFolder + '/', false, (entry) => {
-            if (entry.name === 'TempDeploy.zip') return false;
-            return entry; 
-        });
+        archive.directory(config.uploadFolder + '/', false, (entry) => 
+            entry.name !== 'TempDeploy.zip' ? entry : undefined 
+        );
         await archive.finalize();
 
         await processVMs(config, 5, async (vm, server) => {
