@@ -46,7 +46,7 @@ module.exports = {
     generateCode: function (newpath, serviceName) {
         return {
             "start": `${serviceName ? `sudo systemctl stop ${serviceName} &&` : ''} export runship="${newpath}" && rm -rf $runship && mkdir -p $runship`,
-            "end": `export runship="${newpath}" && cd $runship && unzip -o deploy.zip && rm -rf deploy.zip`,
+            "end": `export runship="${newpath}" && cd $runship && unzip -o TempDeploy.zip && rm -rf TempDeploy.zip`,
             "normal": `export runship="${newpath}" && cd $runship &&`,
             "service": `${serviceName ? `sudo systemctl start ${serviceName}` : ''}`
         }
