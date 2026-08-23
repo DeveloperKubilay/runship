@@ -17,6 +17,10 @@ Auto-Deploy, uygulamaları birden fazla sanal makineye (VM) dağıtma sürecini 
    ```bash
    npm install runship
    ```
+   > **Not:** VM yönetimi için JSON yerine Firebase Firestore kullanmak isterseniz, Firebase paketini manuel yükleyin:
+   > ```bash
+   > npm install firebase
+   > ```
 
 ## Yapılandırma ⚙️
 `config.json` dosyasını Firebase yapılandırmanız ve şifreleme şifrenizle güncelleyin:

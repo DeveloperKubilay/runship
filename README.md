@@ -17,6 +17,10 @@ Auto-Deploy is a Node.js-based deployment automation tool designed to simplify t
    ```bash
    npm install runship
    ```
+   > **Note:** If you want to use Firebase Firestore for VM storage instead of JSON, install Firebase manually:
+   > ```bash
+   > npm install firebase
+   > ```
 
 ## Configuration ⚙️
 Update the `config.json` file with your Firebase configuration and encryption password:
