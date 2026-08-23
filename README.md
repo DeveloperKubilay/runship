@@ -7,8 +7,9 @@ https://youtu.be/Y0v-qoW07jI
 Auto-Deploy is a Node.js-based deployment automation tool designed to simplify the process of deploying applications to multiple virtual machines (VMs). It leverages Firebase for VM management and SSH for secure communication.
 
 ## Features 🌟
-- **Firebase Integration**: Manage VMs securely with Firebase Firestore.
+- **Firebase Integration (Optional)**: Manage VMs securely with Firebase Firestore or local JSON database.
 - **Encryption**: Sensitive data is encrypted using AES-256-CBC.
+- **`runship.ignore` Support**: Exclude `.git`, `node_modules`, and files defined in your `runship.ignore` file from deployment archives.
 - **Batch Deployment**: Deploy to multiple VMs in parallel with configurable batch sizes.
 - **Customizable Hooks**: Run pre-upload and pre-run commands for flexible deployment workflows.
 

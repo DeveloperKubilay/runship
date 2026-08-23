@@ -7,8 +7,9 @@ https://youtu.be/Y0v-qoW07jI
 Auto-Deploy, uygulamaları birden fazla sanal makineye (VM) dağıtma sürecini kolaylaştırmak için tasarlanmış Node.js tabanlı bir dağıtım otomasyon aracıdır. Firebase'i VM yönetimi ve SSH'yi güvenli iletişim için kullanır.
 
 ## Özellikler 🌟
-- **Firebase Entegrasyonu**: VM'leri güvenli bir şekilde Firebase Firestore ile yönetin.
+- **Firebase Entegrasyonu (Opsiyonel)**: VM'leri güvenli bir şekilde Firebase Firestore ile yönetin veya yerel JSON kullanın.
 - **Şifreleme**: Hassas veriler AES-256-CBC kullanılarak şifrelenir.
+- **`runship.ignore` Desteği**: `.git`, `node_modules` ve `runship.ignore` dosyasında belirlediğiniz dosya/klasörler deploy paketine dahil edilmez.
 - **Toplu Dağıtım**: Birden fazla VM'ye paralel olarak dağıtım yapın.
 - **Özelleştirilebilir Komutlar**: Esnek dağıtım iş akışları için yükleme öncesi ve çalışma öncesi komutlar çalıştırın.
 

@@ -2,7 +2,51 @@ const firebase = require("./firebase");
 const archiver = require('archiver');
 const ssh = require('./sshClient');
 const fs = require('fs');
+const path = require('path');
 const jsonDatabase = require("./jsonDatabase");
+
+function getIgnoreList(uploadFolder) {
+    const defaultIgnores = ['TempDeploy.zip', '.git', 'runship.ignore', '.runshipignore'];
+    const userPatterns = [];
+    const ignoreFiles = ['runship.ignore', '.runshipignore'];
+
+    for (const file of ignoreFiles) {
+        const fullPath = path.join(uploadFolder, file);
+        if (fs.existsSync(fullPath)) {
+            try {
+                const content = fs.readFileSync(fullPath, 'utf8');
+                const lines = content.split(/\r?\n/).map(l => l.trim()).filter(l => l && !l.startsWith('#'));
+                userPatterns.push(...lines);
+            } catch (e) { }
+            break;
+        }
+    }
+
+    return [...defaultIgnores, ...userPatterns];
+}
+
+function shouldIgnore(entryName, patterns) {
+    const normalizedName = entryName.replace(/\\/g, '/').replace(/^\/+|\/+$/g, '');
+
+    for (let pattern of patterns) {
+        pattern = pattern.replace(/\\/g, '/').trim();
+        if (!pattern) continue;
+
+        let cleanPattern = pattern.replace(/^\/+|\/+$/g, '');
+
+        if (pattern.startsWith('*.')) {
+            const ext = pattern.slice(1);
+            if (normalizedName.endsWith(ext)) return true;
+        } else if (cleanPattern === normalizedName) {
+            return true;
+        } else if (normalizedName.startsWith(cleanPattern + '/')) {
+            return true;
+        } else if (normalizedName.includes('/' + cleanPattern + '/') || normalizedName.endsWith('/' + cleanPattern)) {
+            return true;
+        }
+    }
+    return false;
+}
 
 async function processVMs(config, action) {
     const batchSize = config.multiply || 1;
@@ -46,15 +90,27 @@ module.exports = {
     deploy: async function (config) {
         try { fs.unlinkSync('TempDeploy.zip'); } catch (e) { }
         const output = fs.createWriteStream('TempDeploy.zip');
-        const archive = archiver('zip');
+        const archive = archiver('zip', { zlib: { level: 9 } });
+        const ignorePatterns = getIgnoreList(config.uploadFolder || '.');
+
+        const zipPromise = new Promise((resolve, reject) => {
+            output.on('close', resolve);
+            archive.on('error', reject);
+        });
+
         archive.pipe(output);
-        archive.directory(config.uploadFolder + '/', false, (entry) =>
-            entry.name !== 'TempDeploy.zip' ? entry : undefined
-        );
+        archive.directory(config.uploadFolder + '/', false, (entry) => {
+            if (shouldIgnore(entry.name, ignorePatterns)) {
+                return false;
+            }
+            return entry;
+        });
+
         if (config.verbose) archive.on('entry', (entry) => {
             console.log('Archiving:', entry.name);
         });
         await archive.finalize();
+        await zipPromise;
 
         await processVMs(config, async (vm, server) => {
             if (config.verbose) console.log("Deploying to VM:", vm.host);
